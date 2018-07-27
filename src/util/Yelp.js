@@ -1,15 +1,13 @@
 const apiKey = '26cURpazsV9JJFADwW-q7-q8DKzqrHenfSWX73avSkscYWf3XakgFU2Z8xW4EzDQq5rmcsgcIMOqHBxX5kPoqwJ-mDT4GC6ZsxRxPUPZpM35jDaQReJCm0hEk3RaW3Yx'
 
-class Yelp {
-  static search(term, location, sortBy) {
+const Yelp = {
+  search(term, location, sortBy) {
       return fetch(
         (`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${term}&location=${location}&sort_by=${sortBy}`),
-        {
-          headers: {
-            Authorization: (`Bearer ${apiKey}`)
+          {headers: {
+            Authorization: `Bearer ${apiKey}`
           }
-        }
-      ).then(response => {
+      }).then(response => {
         return response.json();
       }).then(jsonResponse => {
         if(jsonResponse.businesses) {
@@ -21,7 +19,7 @@ class Yelp {
               city: business.location.city,
               state: business.location.state,
               zipCode: business.location.zip_code,
-              category: business.categories,
+              category: business.categories[0].title,
               rating: business.rating,
               reviewCount: business.review_count
             })

@@ -4,6 +4,7 @@ import BusinessList from '../src/components/BusinessList/BusinessList';
 import SearchBar from '../src/components/SearchBar/SearchBar';
 import Yelp from '../src/util/Yelp.js';
 
+/*
 const business = {
   id: Yelp.id,
   imageSrc: Yelp.imageSrc,
@@ -25,6 +26,7 @@ const businesses = [
   business,
   business
 ];
+*/
 
 class App extends React.Component {
   constructor(props) {
@@ -37,6 +39,7 @@ class App extends React.Component {
 
   searchYelp(term, location, sortBy) {
     Yelp.search(term, location, sortBy).then(businesses => {
+      console.log(businesses);
       this.setState({businesses: businesses});
     });
   }
@@ -46,7 +49,7 @@ class App extends React.Component {
       <div className="App">
         <h1>ravenous</h1>
         <SearchBar searchYelp={this.searchYelp} />
-        <BusinessList businesses={businesses} />
+        <BusinessList businesses={this.state.businesses} />
       </div>
     );
   }
